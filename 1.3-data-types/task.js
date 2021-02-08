@@ -1,5 +1,7 @@
 function calculateTotalMortgage(percent, contribution, amount, date) {
     'use strict';
+    /* First version
+    
     if (typeof percent === 'string') {
         percent = parseFloat(percent);
     } else if ((typeof percent != 'number') && (typeof percent != 'string')) {
@@ -20,13 +22,27 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     console.log(`проценты: ${percent}`);
     console.log(`перв взнос: ${contribution}`);
     console.log(`сумма кредита: ${amount}`);
+    console.log(`дата окончания: ${date}`); */
 
-    console.log(`дата окончания: ${date}`);
+    if (isNaN(+percent)) {
+        return `Параметр <Процентная ставка> содержит неправильное значение <${percent}>`;
+    }
+    const parcedPercent = parseFloat(percent);
+
+    if (isNaN(+contribution)) {
+        return `Параметр <Первоначальный взнос> содержит неправильное значение <${contribution}>`;
+    }
+    const parcedContribution = parseFloat(contribution);
+
+    if (isNaN(+amount)) {
+        return `Параметр <Сумма кредита> содержит неправильное значение <${amount}>`;
+    }
+    const parcedAmount = parseFloat(amount);
 
 
-    if ((typeof percent === 'number') && (typeof contribution === 'number') && (typeof amount === 'number')) {
+    /*if ((typeof percent === 'number') && (typeof contribution === 'number') && (typeof amount === 'number')) { */
         //тело кредита: сумма кредита минус первоначальный взнос
-        let credit = amount - contribution;
+        let credit = parcedAmount - parcedContribution;
         console.log(`тело кредита: ${credit}`);
 
         //количество выплачиваемых месяцев
@@ -37,7 +53,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
         /*Ежемесячная оплата: Платеж=S*(P+P/(((1+P)^n)-1)), где: S - тело кредита, 
         P - 1/12 процентной ставки (от 0 до 1), n - количество месяцев*/
-        let percentMonth = percent / 100 / 12;
+        let percentMonth = parcedPercent / 100 / 12;
         console.log(`1/12 процентной ставки: ${percentMonth}`);
         let payment = credit * (percentMonth + percentMonth / (((1 + percentMonth) ** amountMonth) - 1));
         console.log(`ежемесячная оплата: ${payment}`);
@@ -46,17 +62,17 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         let totalAmount = amountMonth * payment;
         console.log(`итог: ${totalAmount}`);
         return parseFloat(totalAmount.toFixed(2));
-    }
+   //}
 }
 
 function getGreeting(name) {
-    let greeting;
+    /*let greeting;
     if ((name != '') && (typeof name != 'undefined')) {
         greeting = `Привет, мир! Меня зовут ${name}.`;
         console.log(greeting);
     } else if ((name === '') || (typeof name === 'undefined')) {
         greeting = `Привет, мир! Меня зовут Аноним.`;
         console.log(greeting);
-    }
-    return greeting;
+    }*/
+    return (`Привет, мир! Меня зовут ${name || "Аноним"}`);
 }
