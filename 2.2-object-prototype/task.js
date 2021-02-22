@@ -20,6 +20,12 @@ String.prototype.isPalindrome = function(str) {
     };
 }
 
+/*Можно было проще:
+String.prototype.isPalindrome = function() {
+      const source = this.toLowerCase().split("");
+      return source.join("") === source.reverse().join("");
+}*/
+
 function getAverageMark(marks) {
     if (marks.length === 0) {
         return 0;
@@ -30,22 +36,23 @@ function getAverageMark(marks) {
         sumValues += marks[i];
     };
     
-    let average = sumValues / marks.length;
-    let roundedAverage = Math.round(average);
+    const average = sumValues / marks.length;
+    const roundedAverage = Math.round(average);
     return roundedAverage;
 }
 
 function checkBirthday(birthday) {
-    let todayDate = new Date();
-    let now = todayDate.getTime();
+    const todayDate = new Date();
+    const now = todayDate.getTime();
     console.log(`today: ${now}`);
 
-    let  userBirthday = new Date(birthday);
-    birthday = userBirthday.getTime();
-    console.log(`userBirthday: ${birthday}`);
+    const parsedBirthday = new Date(birthday).getTime();
+    //let  userBirthday = new Date(birthday);
+    //birthday = userBirthday.getTime();
+    console.log(`userBirthday: ${parsedBirthday}`);
 
-    let diff = now - birthday;
-    let age = Math.trunc(diff / 31556952000);
+    const diff = now - parsedBirthday;
+    const age = Math.trunc(diff / 31556952000);
 
     console.log(`result: ${(age > 18)}`);
     return (age > 18);
