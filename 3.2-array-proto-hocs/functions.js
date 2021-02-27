@@ -54,11 +54,12 @@ function sum(...args) {
 };
 
 function compareArrays(arr1, arr2) {
-    if (arr1.length === arr2.length) {
+    /*if (arr1.length === arr2.length) {
         return arr1.every((currentValue, item) => currentValue === arr2[item]); 
     } else {
         return false;
-    };
+    };*/
+    return ((arr1.length === arr2.length) && arr1.every((currentValue, item) => currentValue === arr2[item]));
 };
 
 function memorize(fn, limit) {
@@ -66,9 +67,10 @@ function memorize(fn, limit) {
     return function(...args) {
         if (!(memory.some(element => compareArrays(element.args, args)))) {
             if (memory.length === limit) {
-                memory.splice(0,1, {args: args, result: fn(...args)})
+                memory.splice(0,1);
+                memory.push({args: args, result: fn(...args)});
             } else {
-            memory.push({args: args, result: fn(...args)})
+                memory.push({args: args, result: fn(...args)})
             };
         };
         console.log(memory);
@@ -78,3 +80,11 @@ function memorize(fn, limit) {
 
 //task 3
 
+function testCase(testFunction, timer) {
+    const fnArgs = [ [1,2,3], [1,2], [1,2,3], [1,2], [9,5,2,4] ];
+    console.time(timer);
+    for (let i = 0; i <= 100; i++) {
+        fnArgs.forEach(element => testFunction.apply(null, element));
+    };
+    console.timeEnd(timer);
+};
